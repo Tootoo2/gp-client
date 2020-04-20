@@ -12,6 +12,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { signin } from "../../actions";
+import { Link as RLink } from "react-router-dom";
 
 const Copyright = () => {
   return (
@@ -102,9 +103,9 @@ const SignIn = () => {
         </Button>
         <Grid container justify="flex-end">
           <Grid item>
-            <Link href="/signup" variant="body2">
-              Don't have an account? Sign Up
-            </Link>
+            <RLink to="/signup">
+              <Link variant="body2">Don't have an account? Sign Up</Link>
+            </RLink>
           </Grid>
         </Grid>
       </div>

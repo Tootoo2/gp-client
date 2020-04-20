@@ -29,8 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
   send: {
     display: "flex",
-    justifyContent: "space-around",
-    margin: "24px",
+    marginBottom: "24px",
   },
   reverseColumn: {
     display: "flex",
@@ -155,7 +154,12 @@ const Chat = () => {
             ),
           }}
         />
-        <Button variant="contained" color="primary" onClick={handleMessage}>
+        <Button
+          variant="contained"
+          color="secondary"
+          style={{ boxShadow: "none", marginLeft: "4px" }}
+          onClick={handleMessage}
+        >
           Send
         </Button>
         {isEmojiOpen && (

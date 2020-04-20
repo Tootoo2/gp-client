@@ -1,6 +1,6 @@
 import React from "react";
 import moment from "moment-timezone";
-import { makeStyles } from "@material-ui/core";
+import { makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   messageContainer: {
@@ -10,9 +10,11 @@ const useStyles = makeStyles((theme) => ({
   messageDivider: {
     display: "flex",
     flexDirection: "column",
+    flex: 1,
   },
   messageUserInfo: {
-    flex: 1,
+    display: "flex",
+    justifyContent: "space-between",
   },
 }));
 
@@ -24,9 +26,12 @@ const Message = ({ username, message, timestamp }) => {
     <div className={classes.messageContainer}>
       <div className={classes.messageDivider}>
         <div className={classes.messageUserInfo}>
-          {username} {date}
+          <Typography variant="subtitle2">{username}</Typography>
+          <Typography variant="subtitle2" color="secondary">
+            {`<${date}>`}
+          </Typography>
         </div>
-        <p>{message}</p>
+        <Typography variant="body2">{message}</Typography>
       </div>
     </div>
   );

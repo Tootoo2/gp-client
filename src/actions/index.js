@@ -7,7 +7,7 @@ import {
 } from "./types";
 
 export const signup = (username, password) => async (dispatch) => {
-  const response = await fetch("http://localhost:3090/signup", {
+  const response = await fetch("https://gpswe-server.herokuapp.com/signup", {
     method: "POST",
     body: JSON.stringify({ username, password }),
   });
@@ -25,7 +25,7 @@ export const signup = (username, password) => async (dispatch) => {
   dispatch(fetchUser());
 };
 export const signin = (username, password) => async (dispatch) => {
-  const response = await fetch("http://localhost:3090/signin", {
+  const response = await fetch("https://gpswe-server.herokuapp.com/signin", {
     method: "POST",
     body: JSON.stringify({ username, password }),
   });
@@ -48,7 +48,7 @@ export const signout = () => {
 };
 
 export const fetchUser = () => async (dispatch) => {
-  const response = await fetch("http://localhost:3090/user", {
+  const response = await fetch("https://gpswe-server.herokuapp.com/user", {
     method: "GET",
     headers: {
       authorization: localStorage.getItem("token"),
@@ -67,7 +67,7 @@ export const fetchUser = () => async (dispatch) => {
 };
 
 export const fetchMessages = () => async (dispatch) => {
-  const response = await fetch("http://localhost:3090/chat", {
+  const response = await fetch("https://gpswe-server.herokuapp.com/chat", {
     method: "GET",
     headers: {
       authorization: localStorage.getItem("token"),
@@ -88,7 +88,7 @@ export const fetchMessages = () => async (dispatch) => {
 };
 
 export const sendMessage = (username, message) => async (dispatch) => {
-  const response = await fetch("http://localhost:3090/message", {
+  const response = await fetch("https://gpswe-server.herokuapp.com/message", {
     method: "POST",
     body: JSON.stringify({ username, message }),
   });

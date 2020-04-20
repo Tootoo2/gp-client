@@ -31,12 +31,11 @@ const Home = () => {
   return (
     <Container className={classes.container} maxWidth="lg">
       <Paper className={classes.paperStyles} elevation={3}>
-        <h1>Welcome, {user.username}</h1>
+        <h1>Welcome</h1>
         <div>
           <img className={classes.logo} src={GPlogo} alt="logo" />
         </div>
         <h4>The styrelse is happy to see you again</h4>
-        <h5>Remember to have fun and behave accordingly!</h5>
       </Paper>
     </Container>
   );

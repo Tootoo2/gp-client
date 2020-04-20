@@ -66,7 +66,7 @@ const Chat = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const io = socket();
+    const io = socket("https://gpswe-server.herokuapp.com/");
     io.on("postMessage", (data) => {
       setSocketMessage((prev) => [...prev, data]);
     });

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import GPlogo from "../assets/gp.png";
 import { makeStyles } from "@material-ui/core/styles";
@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Home = () => {
-  const user = useSelector((state) => state.user);
   const classes = useStyles();
 
   return (

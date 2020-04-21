@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 import Home from "./components/Home.jsx";
-import Chat from "./components/Chat.jsx";
+import Chat from "./components/chat/Chat.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import MyAppBar from "./components/navigation/MyAppBar";
 import MyDrawer from "./components/navigation/MyDrawer";
@@ -15,7 +15,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     authenticated && dispatch(fetchUser());
-  }, [dispatch]);
+  }, [dispatch, authenticated]);
 
   const AuthorizedRoutes = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);

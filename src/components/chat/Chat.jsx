@@ -56,8 +56,6 @@ const Chat = () => {
     messagesEndRef.current.scrollIntoView();
   };
 
-  console.log("rerender");
-
   const RenderMessages = () => {
     if (!messages.messages) return null;
     return messages.messages.map((mess) => (

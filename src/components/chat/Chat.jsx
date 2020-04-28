@@ -4,8 +4,6 @@ import { fetchMessages } from "../../actions";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container } from "@material-ui/core";
 import "emoji-mart/css/emoji-mart.css";
-import { APIPREFIX } from "../../config.js";
-import socket from "socket.io-client";
 
 import Message from "./Message.jsx";
 import SendMessage from "./SendMessage";
@@ -20,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
   messages: {
     flex: 1,
     overflowY: "auto",
-    // scrollbarWidth: "none",
   },
 
   reverseColumn: {
@@ -33,6 +30,7 @@ const Chat = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const messages = useSelector((state) => state.messages);
+  const io = useSelector((state) => state.io.socket);
   const [socketMessage, setSocketMessage] = useState([]);
 
   const messagesEndRef = useRef(null);
@@ -42,11 +40,12 @@ const Chat = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const io = socket(`${APIPREFIX}`);
-    io.on("postMessage", (data) => {
-      setSocketMessage((prev) => [...prev, data]);
-    });
-  }, []);
+    if (io) {
+      io.on("postMessage", (data) => {
+        setSocketMessage((prev) => [...prev, data]);
+      });
+    }
+  }, [io]);
 
   useEffect(() => {
     scrollToBottom();

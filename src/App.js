@@ -9,12 +9,16 @@ import { useSelector, useDispatch } from "react-redux";
 import MyAppBar from "./components/navigation/MyAppBar";
 import MyDrawer from "./components/navigation/MyDrawer";
 import { fetchUser } from "./actions";
+import { initSocketConnection } from "./actions/socketActions";
+import { SOCKET_CLOSE } from "./actions/types";
 
 function App() {
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
   useEffect(() => {
     authenticated && dispatch(fetchUser());
+    authenticated && dispatch(initSocketConnection());
+    return () => dispatch({ type: SOCKET_CLOSE });
   }, [dispatch, authenticated]);
 
   const AuthorizedRoutes = () => {

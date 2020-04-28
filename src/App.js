@@ -15,11 +15,26 @@ import { SOCKET_CLOSE } from "./actions/types";
 function App() {
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
+  const io = useSelector((state) => state.io.socket);
+
   useEffect(() => {
     authenticated && dispatch(fetchUser());
     authenticated && dispatch(initSocketConnection());
-    return () => dispatch({ type: SOCKET_CLOSE });
+    //io && io.emit("userOnline", "hej jag är online");
+    return () => {
+      dispatch({ type: SOCKET_CLOSE });
+    };
   }, [dispatch, authenticated]);
+
+  useEffect(() => {
+    if (io) {
+      io.emit("userOnline", "hello i am online");
+      io.on("userOffline", (msg) => {
+        console.log("i am here");
+        console.log(msg);
+      });
+    }
+  }, [io]);
 
   const AuthorizedRoutes = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);

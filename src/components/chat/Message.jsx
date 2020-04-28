@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment-timezone";
 import { makeStyles, Typography } from "@material-ui/core";
+import Linkify from "linkifyjs/react";
 
 const useStyles = makeStyles((theme) => ({
   messageContainer: {
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
   messageUserInfo: {
     display: "flex",
     justifyContent: "space-between",
+  },
+  message: {
+    margin: "0px",
   },
 }));
 
@@ -31,7 +35,9 @@ const Message = ({ username, message, timestamp }) => {
             {`<${date}>`}
           </Typography>
         </div>
-        <Typography variant="body2">{message}</Typography>
+        <Linkify className={classes.message} tagName="p">
+          {message}
+        </Linkify>
       </div>
     </div>
   );

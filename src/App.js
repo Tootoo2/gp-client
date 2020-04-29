@@ -8,7 +8,7 @@ import Chat from "./components/chat/Chat.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import MyAppBar from "./components/navigation/MyAppBar";
 import MyDrawer from "./components/navigation/MyDrawer";
-import { fetchUser } from "./actions";
+import { fetchUser, fetchAllUsers } from "./actions";
 import { initSocketConnection } from "./actions/socketActions";
 import { SOCKET_CLOSE } from "./actions/types";
 
@@ -16,25 +16,23 @@ function App() {
   const authenticated = useSelector((state) => state.auth.authenticated);
   const dispatch = useDispatch();
   const io = useSelector((state) => state.io.socket);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     authenticated && dispatch(fetchUser());
     authenticated && dispatch(initSocketConnection());
-    //io && io.emit("userOnline", "hej jag är online");
+    authenticated && dispatch(fetchAllUsers());
     return () => {
       dispatch({ type: SOCKET_CLOSE });
     };
   }, [dispatch, authenticated]);
 
   useEffect(() => {
-    if (io) {
-      io.emit("userOnline", "hello i am online");
-      io.on("userOffline", (msg) => {
-        console.log("i am here");
-        console.log(msg);
-      });
+    if (io && user._id) {
+      io.emit("userOnline", user);
+      io.on("userOffline", (msg) => {});
     }
-  }, [io]);
+  }, [io, user]);
 
   const AuthorizedRoutes = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);

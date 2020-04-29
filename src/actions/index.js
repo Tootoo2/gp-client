@@ -4,6 +4,7 @@ import {
   USER_SIGNOUT,
   FETCH_USER,
   FETCH_CHAT,
+  FETCH_ALL_USERS,
 } from "./types";
 import { APIPREFIX } from "../config";
 
@@ -63,6 +64,20 @@ export const fetchUser = () => async (dispatch) => {
   const data = await response.json();
   dispatch({
     type: FETCH_USER,
+    payload: data,
+  });
+};
+
+export const fetchAllUsers = () => async (dispatch) => {
+  const response = await fetch(`${APIPREFIX}/users`);
+
+  if (!response.ok) {
+    return;
+  }
+
+  const data = await response.json();
+  dispatch({
+    type: FETCH_ALL_USERS,
     payload: data,
   });
 };

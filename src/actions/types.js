@@ -5,3 +5,4 @@ export const FETCH_USER = "FETCH_USER";
 export const FETCH_CHAT = "FETCH_CHAT";
 export const SOCKET_CONNECT = "SOCKET_CONNECT";
 export const SOCKET_CLOSE = "SOCKET_CLOSE";
+export const FETCH_ALL_USERS = "FETCH_ALL_USERS";

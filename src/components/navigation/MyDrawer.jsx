@@ -10,6 +10,7 @@ import ChatIcon from "@material-ui/icons/Chat";
 import HomeIcon from "@material-ui/icons/Home";
 import { Link } from "react-router-dom";
 import SpaIcon from "@material-ui/icons/Spa";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   list: {
@@ -24,7 +25,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MyDrawer({ toggleDrawer, drawerOpen }) {
+export default function MyDrawer({ toggleDrawer, drawerOpen, onlineUsers }) {
   const classes = useStyles();
 
   const list = () => (
@@ -60,6 +61,7 @@ export default function MyDrawer({ toggleDrawer, drawerOpen }) {
           </ListItem>
         </Link>
       </List>
+      {onlineUsers && onlineUsers.username}
       <Divider />
     </div>
   );
@@ -69,6 +71,7 @@ export default function MyDrawer({ toggleDrawer, drawerOpen }) {
       <React.Fragment>
         <Drawer open={drawerOpen} onClose={() => toggleDrawer()}>
           {list()}
+          {onlineUsers ? onlineUsers[0].username : null}
         </Drawer>
       </React.Fragment>
     </div>

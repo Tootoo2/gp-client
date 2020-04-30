@@ -17,6 +17,7 @@ function App() {
   const dispatch = useDispatch();
   const io = useSelector((state) => state.io.socket);
   const user = useSelector((state) => state.user);
+  const [onlineUsers, setOnlineUsers] = useState(null)
 
   useEffect(() => {
     authenticated && dispatch(fetchUser());
@@ -30,7 +31,9 @@ function App() {
   useEffect(() => {
     if (io && user._id) {
       io.emit("userOnline", user);
-      io.on("userOffline", (msg) => {});
+      io.on("onlineUsers", (users) => {
+        setOnlineUsers(users)
+      });
     }
   }, [io, user]);
 
@@ -44,7 +47,7 @@ function App() {
     return (
       <>
         <MyAppBar toggleDrawer={toggleDrawer} />
-        <MyDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
+        <MyDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} onlineUsers={onlineUsers} />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/chat" component={Chat} />
@@ -55,15 +58,13 @@ function App() {
   };
 
   const UnAuthorizedRoutes = () => {
-    return (
-      <>
-        <Switch>
-          <Route path="/signup" component={SignUp} />
-          <Route path="/signin" component={SignIn} />
-          <Redirect to="/signin" />
-        </Switch>
-      </>
-    );
+    return <>
+      <Switch>
+        <Route path="/signup" component={SignUp} />
+        <Route path="/signin" component={SignIn} />
+        <Redirect to="/signin" />
+      </Switch>
+    </>;
   };
 
   return (

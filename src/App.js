@@ -8,7 +8,7 @@ import Chat from "./components/chat/Chat.jsx";
 import { useSelector, useDispatch } from "react-redux";
 import MyAppBar from "./components/navigation/MyAppBar";
 import MyDrawer from "./components/navigation/MyDrawer";
-import { fetchUser, fetchAllUsers } from "./actions";
+import { fetchUser, fetchAllUsers, fetchOnlineStatus } from "./actions";
 import { initSocketConnection } from "./actions/socketActions";
 import { SOCKET_CLOSE } from "./actions/types";
 
@@ -17,7 +17,6 @@ function App() {
   const dispatch = useDispatch();
   const io = useSelector((state) => state.io.socket);
   const user = useSelector((state) => state.user);
-  const [onlineUsers, setOnlineUsers] = useState(null)
 
   useEffect(() => {
     authenticated && dispatch(fetchUser());
@@ -32,10 +31,10 @@ function App() {
     if (io && user._id) {
       io.emit("userOnline", user);
       io.on("onlineUsers", (users) => {
-        setOnlineUsers(users)
+        dispatch(fetchOnlineStatus(users))
       });
     }
-  }, [io, user]);
+  }, [io, user, dispatch]);
 
   const AuthorizedRoutes = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
@@ -47,7 +46,7 @@ function App() {
     return (
       <>
         <MyAppBar toggleDrawer={toggleDrawer} />
-        <MyDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} onlineUsers={onlineUsers} />
+        <MyDrawer drawerOpen={drawerOpen} toggleDrawer={toggleDrawer}  />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/chat" component={Chat} />

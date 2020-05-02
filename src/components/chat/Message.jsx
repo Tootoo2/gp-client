@@ -2,6 +2,7 @@ import React from "react";
 import moment from "moment-timezone";
 import { makeStyles, Typography } from "@material-ui/core";
 import Linkify from "linkifyjs/react";
+import OnlineDots from './OnlineDots'
 
 const useStyles = makeStyles((theme) => ({
   messageContainer: {
@@ -30,7 +31,7 @@ const Message = ({ username, message, timestamp }) => {
     <div className={classes.messageContainer}>
       <div className={classes.messageDivider}>
         <div className={classes.messageUserInfo}>
-          <Typography variant="subtitle2">{username}</Typography>
+          <Typography variant="subtitle2">{username}</Typography><OnlineDots username={username}/>
           <Typography variant="subtitle2" color="secondary">
             {`<${date}>`}
           </Typography>

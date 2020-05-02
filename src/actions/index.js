@@ -5,12 +5,13 @@ import {
   FETCH_USER,
   FETCH_CHAT,
   FETCH_ALL_USERS,
-} from "./types";
-import { APIPREFIX } from "../config";
+  FETCH_ONLINE_USERS,
+} from './types';
+import { APIPREFIX } from '../config';
 
 export const signup = (username, password) => async (dispatch) => {
   const response = await fetch(`${APIPREFIX}/signup`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({ username, password }),
   });
 
@@ -23,42 +24,42 @@ export const signup = (username, password) => async (dispatch) => {
     type: AUTH_USER,
     payload: data.token,
   });
-  localStorage.setItem("token", data.token);
+  localStorage.setItem('token', data.token);
   dispatch(fetchUser());
 };
 export const signin = (username, password) => async (dispatch) => {
   const response = await fetch(`${APIPREFIX}/signin`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({ username, password }),
   });
 
   if (!response.ok) {
-    return dispatch({ type: AUTH_FAIL, payload: "Invalid credentials" });
+    return dispatch({ type: AUTH_FAIL, payload: 'Invalid credentials' });
   }
   const data = await response.json();
   dispatch({
     type: AUTH_USER,
     payload: data.token,
   });
-  localStorage.setItem("token", data.token);
+  localStorage.setItem('token', data.token);
   dispatch(fetchUser());
 };
 
 export const signout = () => {
-  localStorage.removeItem("token");
+  localStorage.removeItem('token');
   return { type: USER_SIGNOUT };
 };
 
 export const fetchUser = () => async (dispatch) => {
   const response = await fetch(`${APIPREFIX}/user`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      authorization: localStorage.getItem("token"),
+      authorization: localStorage.getItem('token'),
     },
   });
 
   if (!response.ok) {
-    console.log("bad fetch user");
+    console.log('bad fetch user');
     return;
   }
   const data = await response.json();
@@ -84,14 +85,14 @@ export const fetchAllUsers = () => async (dispatch) => {
 
 export const fetchMessages = () => async (dispatch) => {
   const response = await fetch(`${APIPREFIX}/chat`, {
-    method: "GET",
+    method: 'GET',
     headers: {
-      authorization: localStorage.getItem("token"),
+      authorization: localStorage.getItem('token'),
     },
   });
 
   if (!response.ok) {
-    console.log("bad message");
+    console.log('bad message');
     return;
   }
 
@@ -105,13 +106,21 @@ export const fetchMessages = () => async (dispatch) => {
 
 export const sendMessage = (username, message) => async (dispatch) => {
   const response = await fetch(`${APIPREFIX}/message`, {
-    method: "POST",
+    method: 'POST',
     body: JSON.stringify({ username, message }),
   });
 
   if (!response.ok) {
-    console.log("failed sending msg");
+    console.log('failed sending msg');
     return;
   }
   // temp to see if it works
+};
+
+export const fetchOnlineStatus = (users) => (dispatch) => {
+   dispatch({
+     type: FETCH_ONLINE_USERS,
+     payload: users
+   })
+
 };

@@ -4,6 +4,7 @@ import user from "./userReducer";
 import messages from "./chatReducer";
 import io from "./socketReducer";
 import users from "./usersReducer";
+import onlineUsers from './onlineUsersReducer'
 
 export default combineReducers({
   auth,
@@ -11,4 +12,5 @@ export default combineReducers({
   messages,
   io,
   users,
+  onlineUsers
 });

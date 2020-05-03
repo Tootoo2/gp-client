@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import GPlogo from "../assets/gp.png";
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, Paper } from "@material-ui/core";

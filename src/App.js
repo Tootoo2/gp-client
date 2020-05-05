@@ -3,6 +3,7 @@ import './App.css';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import SignIn from './components/auth/SignIn';
 import SignUp from './components/auth/SignUp';
+import Profile from './components/user/Profile'
 import Home from './components/Home.jsx';
 import Chat from './components/chat/Chat.jsx';
 import { useSelector, useDispatch } from 'react-redux';
@@ -50,6 +51,7 @@ function App() {
         <Switch>
           <Route path='/' component={Home} exact />
           <Route path='/chat' component={Chat} />
+          <Route path='/profile/:id?' component={Profile}/>
           <Redirect to='/' />
         </Switch>
       </>

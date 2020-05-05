@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signout } from "../../actions";
 import PersonIcon from "@material-ui/icons/Person";
@@ -35,6 +35,7 @@ const MyAppBar = ({ toggleDrawer }) => {
   const [menuAnchor, setMenuAnchor] = useState(null);
   const dispatch = useDispatch();
   let location = useLocation();
+  let history = useHistory();
 
   useEffect(() => {
     if (location.pathname === "/") {
@@ -50,6 +51,11 @@ const MyAppBar = ({ toggleDrawer }) => {
   const handleClose = () => {
     setMenuAnchor(null);
   };
+
+  const goToProfile = () => {
+    history.push('/profile')
+    handleClose()
+  }
 
   const handleClick = (e) => {
     setMenuAnchor(e.currentTarget);
@@ -94,7 +100,7 @@ const MyAppBar = ({ toggleDrawer }) => {
         open={!!menuAnchor}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={goToProfile}>Profile</MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
         <MenuItem onClick={handleSignOut}>Logout</MenuItem>
       </Menu>
